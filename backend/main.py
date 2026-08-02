@@ -35,6 +35,15 @@ app.include_router(automation.router)
 os.makedirs(settings.UPLOAD_DIR, exist_ok=True)
 app.mount("/uploads", StaticFiles(directory=settings.UPLOAD_DIR), name="uploads")
 
+@app.get("/")
+def root():
+    return {
+        "status": "online",
+        "message": "AI Job Auto-Applier API Server is running!",
+        "health": "/api/health",
+        "docs": "/docs"
+    }
+
 @app.get("/api/health")
 def health_check():
     return {
