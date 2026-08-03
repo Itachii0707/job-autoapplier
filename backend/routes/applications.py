@@ -1,9 +1,9 @@
 from typing import List
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from ..database import get_db
 from ..models import JobApplication, BotLog
-from ..schemas import JobApplicationResponse, BotLogResponse, StatsSummary
+from ..schemas import JobApplicationResponse, JobApplicationCreate, BotLogResponse, StatsSummary
 
 router = APIRouter(prefix="/api/applications", tags=["Applications"])
 
@@ -24,6 +24,23 @@ def get_applications(db: Session = Depends(get_db)):
         db.commit()
         apps = db.query(JobApplication).order_by(JobApplication.applied_at.desc()).all()
     return apps
+
+@router.post("", response_model=JobApplicationResponse)
+def create_application(app_data: JobApplicationCreate, db: Session = Depends(get_db)):
+    new_app = JobApplication(**app_data.model_dump())
+    db.add(new_app)
+    db.commit()
+    db.refresh(new_app)
+    return new_app
+
+@router.delete("/{app_id}")
+def delete_application(app_id: int, db: Session = Depends(get_db)):
+    app = db.query(JobApplication).filter(JobApplication.id == app_id).first()
+    if not app:
+        raise HTTPException(status_code=404, detail="Application not found")
+    db.delete(app)
+    db.commit()
+    return {"message": "Application deleted successfully", "id": app_id}
 
 @router.patch("/{app_id}/toggle-active")
 def toggle_job_auto_apply(app_id: int, db: Session = Depends(get_db)):
@@ -52,3 +69,4 @@ def get_stats_summary(db: Session = Depends(get_db)):
 def get_bot_logs(db: Session = Depends(get_db)):
     logs = db.query(BotLog).order_by(BotLog.timestamp.desc()).limit(50).all()
     return logs
+

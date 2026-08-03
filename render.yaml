@@ -18,19 +18,17 @@ services:
       - key: GEMINI_API_KEY
         sync: false
 
-  # Frontend Static Site
+  # Frontend Web Service (Next.js 15 App Router)
   - type: web
     name: ai-job-autoapplier-frontend
-    env: static
+    env: node
+    plan: free
+    region: singapore
     buildCommand: cd frontend && npm install && npm run build
-    staticPublishPath: ./frontend/dist
+    startCommand: cd frontend && npm run start
     envVars:
-      - key: VITE_API_URL
+      - key: NEXT_PUBLIC_API_URL
         fromService:
           type: web
           name: ai-job-autoapplier-backend
           property: host
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html

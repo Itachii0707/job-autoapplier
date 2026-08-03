@@ -53,7 +53,7 @@ graph TD
 - **Backend API**: Python 3.11+, FastAPI, Pydantic v2, SQLAlchemy 2.0, Uvicorn
 - **Automation Engine**: Playwright Async Python with humanized anti-bot evasion & persistent context
 - **AI / LLM Engine**: Instructor, Google Gemini SDK (`google-genai`), jsonref
-- **Frontend Dashboard**: React 19, Vite 6, Tailwind CSS v4, Lucide React, Recharts
+- **Frontend Dashboard**: Next.js 15 (App Router), React 19, Tailwind CSS v4, Lucide React, Recharts, Framer Motion
 - **Containerization**: Docker, Docker Compose, Playwright Noble Linux Container
 
 ---
@@ -72,16 +72,18 @@ graph TD
 │   ├── multi_platform_scraper.py# Multi-platform Playwright automation engine
 │   ├── resume_parser.py         # PDF resume text & keyword analyzer
 │   └── routes/                  # API endpoints
-│       ├── applications.py      # Job application history & metrics
+│       ├── applications.py      # Job application history & metrics (GET, POST, DELETE, PATCH)
 │       ├── automation.py        # Automation controls & WebSocket log stream
 │       ├── profile.py           # User profile & PDF resume upload
 │       └── search.py            # Job search configurations
-├── frontend/                    # Vite + React 19 Dashboard
+├── frontend/                    # Next.js 15 App Router Dashboard
 │   ├── src/
-│   │   ├── components/          # Mission Control, Job Board Tracker, Smart Profile
-│   │   └── services/api.js      # Dynamic production API client & WebSocket handler
-│   ├── Dockerfile               # Multi-stage Nginx build container
-│   └── vercel.json              # Vercel SPA routing rewrite rules
+│   │   ├── app/                 # Next.js App Router (layout, globals.css, pages)
+│   │   │   ├── page.jsx         # Mission Control Dashboard
+│   │   │   ├── jobs/page.jsx    # Job Board & Automator Tracker
+│   │   │   └── profile/page.jsx # Smart Profile & Resume Analyzer
+│   │   ├── components/          # Navbar with Next.js navigation & bot triggers
+│   │   └── services/api.js      # Dynamic API client & WebSocket handler
 ├── Dockerfile                   # Production Linux Playwright Dockerfile
 ├── docker-compose.yml           # Multi-container orchestration
 ├── render.yaml                  # Render 1-click Blueprint configuration

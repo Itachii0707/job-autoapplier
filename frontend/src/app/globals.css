@@ -1,0 +1,135 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-bg-light: #F8FAFC;
+    --color-surface-white: #FFFFFF;
+    --color-primary-blue: #2563EB;
+    --color-primary-hover: #1D4ED8;
+    --color-border-subtle: #E2E8F0;
+    --color-text-main: #0F172A;
+    --color-text-muted: #64748B;
+  }
+}
+
+body {
+  background-color: #F8FAFC;
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.04) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.04) 0px, transparent 50%);
+  color: #0F172A;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* Premium Clean White Card Surface */
+.app-card {
+  background: #FFFFFF;
+  border-radius: 20px;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.03);
+  transition: all 0.25s ease;
+}
+
+.app-card:hover {
+  border-color: #CBD5E1;
+  box-shadow: 0 10px 25px -3px rgba(37, 99, 235, 0.08), 0 4px 10px -2px rgba(15, 23, 42, 0.03);
+}
+
+/* Royal Blue Primary Button */
+.btn-primary {
+  background-color: #2563EB;
+  color: #FFFFFF;
+  font-weight: 600;
+  border-radius: 14px;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+  background-color: #1D4ED8;
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.35);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Neutral Secondary Button */
+.btn-secondary {
+  background-color: #F1F5F9;
+  color: #334155;
+  font-weight: 600;
+  border-radius: 14px;
+  border: 1px solid #E2E8F0;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #E2E8F0;
+  color: #0F172A;
+}
+
+/* Active Blue Pill Tag */
+.pill-active {
+  background-color: #EFF6FF;
+  border: 1.5px solid #3B82F6;
+  color: #1D4ED8;
+  font-weight: 600;
+}
+
+/* Input Fields */
+.app-input {
+  background-color: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  color: #0F172A;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+.app-input:focus {
+  border-color: #2563EB;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+/* Pulsing Status Dot */
+.pulse-dot {
+  position: relative;
+}
+.pulse-dot::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%);
+  background-color: #2563EB;
+  border-radius: 50%;
+  animation: pulseDot 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  z-index: -1;
+}
+
+@keyframes pulseDot {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+  50% { transform: translate(-50%, -50%) scale(2.2); opacity: 0; }
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F8FAFC;
+}
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
